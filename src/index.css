@@ -227,37 +227,23 @@ table {
   border-radius: 50px;
 }
 
-/* ── ESTRUCTURA UNIVERSAL DE SECCIONES EN CARTAS (PARA TODOS LOS TEMAS) ── */
+/* ── ESTRUCTURA BASE DE LAYOUT (SIN ESTILO DE CARTA EN TEMAS 1 Y 3) ── */
 .one-page-scroll {
   position: relative;
-  padding: 20px 20px 80px 20px;
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 60px;
 }
 
 .about-wrapper,
 .about-section {
   display: flex;
   flex-direction: column;
-  gap: 60px;
 }
 
 .deck-card-wrapper {
   position: relative;
-}
-
-.deck-card {
-  position: relative;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  padding: 40px 24px;
-  overflow: visible;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* ── EFECTO MAZO DE CARTAS APILADAS Y RECTAS (PERFECTAMENTE ALINEADAS) TEMA 2 ── */
@@ -335,12 +321,7 @@ table {
   border-radius: 0px;
 }
 
-[data-theme="neon"] .deck-card {
-  background: var(--color-bg);
-  border-radius: 0px;
-  border: 1px solid rgba(0, 245, 160, 0.45);
-  box-shadow: 0 0 35px rgba(0, 245, 160, 0.08);
-}
+
 
 /* ══════════════════════════════════════════════════════════════════════════════
    SECCIÓN: EFECTOS UNIVERSALES EN BOTONES (:hover y :active)

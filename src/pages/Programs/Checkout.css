@@ -345,3 +345,87 @@
     font-size: 1rem;
   }
 }
+
+/* ══ SECCIÓN: FORMULARIO OPCIONAL DE TARJETA ══ */
+.optional-card-form {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.optional-card-form__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.optional-card-form__title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.optional-card-form__badge {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+}
+
+.optional-card-form__subtitle {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+}
+
+.optional-card-form__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.optional-card-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.optional-card-form__field--full {
+  grid-column: 1 / -1;
+}
+
+.optional-card-form__label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.optional-card-form__input {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 0.65rem 0.85rem;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.optional-card-form__input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}

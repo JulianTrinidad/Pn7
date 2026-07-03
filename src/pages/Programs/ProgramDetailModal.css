@@ -1,0 +1,365 @@
+/* ══════════════════════════════════════════════════════════════
+   ESTILOS: ProgramDetailModal.css
+   Ventana modal para mostrar información detallada de programas.
+   ══════════════════════════════════════════════════════════════ */
+
+.pdm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: pdmFadeIn 0.25s ease-out;
+}
+
+@keyframes pdmFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.pdm-container {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  max-width: 650px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 2.5rem 2rem 2rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+/* Scrollbar para la modal */
+.pdm-container::-webkit-scrollbar {
+  width: 6px;
+}
+.pdm-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.pdm-container::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+.pdm-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdm-close:hover {
+  color: var(--color-text);
+  background: var(--color-bg-secondary);
+}
+
+/* Encabezado */
+.pdm-header {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.pdm-badge {
+  display: inline-block;
+  background: var(--color-primary);
+  color: var(--color-bg);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+}
+
+.pdm-title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+}
+
+.pdm-description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.pdm-price {
+  display: flex;
+  align-items: baseline;
+}
+
+.pdm-price__amount {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.pdm-price__currency {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-left: 0.25rem;
+}
+
+.pdm-price__period {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin-left: 0.25rem;
+}
+
+/* Stats Rápidos */
+.pdm-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  background: var(--color-bg-secondary);
+  padding: 1.25rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+  border: 1px solid var(--color-border);
+}
+
+.pdm-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.pdm-stat__icon {
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.pdm-stat__value {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.15rem;
+}
+
+.pdm-stat__label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Secciones generales */
+.pdm-section-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pdm-section-title svg {
+  color: var(--color-primary);
+}
+
+/* Características */
+.pdm-features {
+  margin-bottom: 2rem;
+}
+
+.pdm-features__list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.pdm-features__item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.pdm-features__icon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+/* Objetivos */
+.pdm-objectives {
+  margin-bottom: 2rem;
+}
+
+.pdm-objectives__list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.pdm-objectives__item {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.5;
+}
+
+.pdm-objectives__item::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+}
+
+/* Roadmap */
+.pdm-roadmap {
+  margin-bottom: 2.5rem;
+}
+
+.pdm-roadmap__timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.pdm-roadmap__timeline::before {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 5px;
+  width: 2px;
+  background: var(--color-border);
+}
+
+.pdm-roadmap__phase {
+  position: relative;
+}
+
+.pdm-roadmap__dot {
+  position: absolute;
+  left: -1.5rem;
+  top: 0.25rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 10px var(--color-primary);
+}
+
+.pdm-roadmap__content {
+  background: var(--color-bg-secondary);
+  padding: 1rem 1.25rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+}
+
+.pdm-roadmap__week {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.25rem;
+}
+
+.pdm-roadmap__focus {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+}
+
+.pdm-roadmap__desc {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* CTA */
+.pdm-cta {
+  position: sticky;
+  bottom: -2rem;
+  margin: 0 -2rem -2rem;
+  padding: 1.25rem 2rem;
+  background: var(--color-bg-card);
+  border-top: 1px solid var(--color-border);
+}
+
+.pdm-cta__btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--color-primary);
+  color: var(--color-bg);
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.pdm-cta__btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+@media (max-width: 600px) {
+  .pdm-container {
+    padding: 2rem 1.25rem 1.5rem;
+  }
+  
+  .pdm-stats {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .pdm-cta {
+    margin: 0 -1.25rem -1.5rem;
+    padding: 1rem 1.25rem;
+  }
+}

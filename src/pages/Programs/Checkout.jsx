@@ -107,8 +107,24 @@ export default function Checkout() {
 
   /* ══ SECCIÓN: ESTADO LOCAL ══ */
   const [currency, setCurrency] = useState(initialCurrency || 'ARS');
-  const [paymentMethod, setPaymentMethod] = useState('mercadopago');
+  const [paymentMethod, setPaymentMethod] = useState(initialCurrency === 'USD' ? 'paypal' : 'mercadopago');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [cardData, setCardData] = useState({
+    number: '',
+    name: '',
+    expiry: '',
+    cvv: '',
+  });
+
+  const handleCurrencyChange = (newCurrency) => {
+    setCurrency(newCurrency);
+    setPaymentMethod(newCurrency === 'USD' ? 'paypal' : 'mercadopago');
+  };
+
+  const handleCardChange = (e) => {
+    const { name, value } = e.target;
+    setCardData((prev) => ({ ...prev, [name]: value }));
+  };
 
   // Calcular precios según la moneda seleccionada
   const price = currency === 'ARS' ? plan.priceARS : plan.priceUSD;
@@ -117,23 +133,6 @@ export default function Checkout() {
   /* ══ SECCIÓN: HANDLER DE PAGO (SIMULADO) ══ */
   const handlePay = async () => {
     setIsProcessing(true);
-
-    // 🔧 INTEGRACIÓN: Reemplazar simulación con llamada a API de pago real
-    // Ejemplo para MercadoPago:
-    //   const response = await fetch('/api/create-preference', {
-    //     method: 'POST',
-    //     body: JSON.stringify({ planId: plan.id, currency, formData }),
-    //   });
-    //   const { preferenceUrl } = await response.json();
-    //   window.location.href = preferenceUrl;
-    //
-    // Ejemplo para Stripe:
-    //   const response = await fetch('/api/create-checkout-session', {
-    //     method: 'POST',
-    //     body: JSON.stringify({ planId: plan.id, currency, formData }),
-    //   });
-    //   const { sessionUrl } = await response.json();
-    //   window.location.href = sessionUrl;
 
     // Simulación de procesamiento de pago (2 segundos)
     await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -206,7 +205,6 @@ export default function Checkout() {
             <div className="order-summary__row">
               <span className="order-summary__label">Descuento</span>
               <span className="order-summary__value" style={{ color: '#10b981' }}>
-                {/* 🔧 DATO MODIFICABLE: Descuento aplicado */}
                 —
               </span>
             </div>
@@ -232,7 +230,7 @@ export default function Checkout() {
                   className={`checkout-currency__btn ${
                     currency === 'ARS' ? 'checkout-currency__btn--active' : ''
                   }`}
-                  onClick={() => setCurrency('ARS')}
+                  onClick={() => handleCurrencyChange('ARS')}
                 >
                   🇦🇷 Pesos (ARS)
                 </button>
@@ -240,13 +238,12 @@ export default function Checkout() {
                   className={`checkout-currency__btn ${
                     currency === 'USD' ? 'checkout-currency__btn--active' : ''
                   }`}
-                  onClick={() => setCurrency('USD')}
+                  onClick={() => handleCurrencyChange('USD')}
                 >
                   🇺🇸 Dólares (USD)
                 </button>
               </div>
               <p className="checkout-currency__rate">
-                {/* 🔧 DATO MODIFICABLE */}
                 Tipo de cambio: 1 USD = ${EXCHANGE_RATE.toLocaleString('es-AR')}{' '}
                 ARS
               </p>
@@ -275,27 +272,26 @@ export default function Checkout() {
                 <div className="payment-method__info">
                   <span className="payment-method__name">
                     <Wallet size={18} />
-                    Pagar en Pesos (ARS)
+                    Pagar con MercadoPago (ARS)
                   </span>
                   <span className="payment-method__desc">
-                    {/* 🔧 DATO MODIFICABLE */}
-                    MercadoPago — Tarjeta, transferencia o efectivo
+                    Dinero en cuenta, transferencia o efectivo
                   </span>
                 </div>
               </div>
 
-              {/* Opción 2: Stripe (Dólares) */}
+              {/* Opción 2: PayPal (Dólares) */}
               <div
                 className={`payment-method ${
-                  paymentMethod === 'stripe' ? 'payment-method--selected' : ''
+                  paymentMethod === 'paypal' ? 'payment-method--selected' : ''
                 }`}
-                onClick={() => setPaymentMethod('stripe')}
+                onClick={() => setPaymentMethod('paypal')}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) =>
-                  e.key === 'Enter' && setPaymentMethod('stripe')
+                  e.key === 'Enter' && setPaymentMethod('paypal')
                 }
-                aria-label="Pagar con Stripe en Dólares"
+                aria-label="Pagar con PayPal en Dólares"
               >
                 <div className="payment-method__radio">
                   <div className="payment-method__radio-dot" />
@@ -303,12 +299,72 @@ export default function Checkout() {
                 <div className="payment-method__info">
                   <span className="payment-method__name">
                     <CreditCard size={18} />
-                    Pagar en Dólares (USD)
+                    Pagar con PayPal (USD)
                   </span>
                   <span className="payment-method__desc">
-                    {/* 🔧 DATO MODIFICABLE */}
-                    Stripe — Visa, Mastercard, American Express
+                    PayPal — Saldo, Visa o Mastercard internacional
                   </span>
+                </div>
+              </div>
+            </div>
+
+            {/* ══ Formulario Clásico de Tarjeta (Opcional) ══ */}
+            <div className="optional-card-form">
+              <div className="optional-card-form__header">
+                <span className="optional-card-form__title">
+                  <CreditCard size={16} />
+                  Datos de Tarjeta
+                </span>
+                <span className="optional-card-form__badge">Opcional</span>
+              </div>
+              <p className="optional-card-form__subtitle">
+                Podés ingresar los datos de tu tarjeta aquí o continuar directo a la plataforma elegida ({paymentMethod === 'paypal' ? 'PayPal' : 'MercadoPago'}).
+              </p>
+              <div className="optional-card-form__grid">
+                <div className="optional-card-form__field optional-card-form__field--full">
+                  <label className="optional-card-form__label">Número de Tarjeta</label>
+                  <input
+                    type="text"
+                    name="number"
+                    className="optional-card-form__input"
+                    placeholder="4500 1234 5678 9010"
+                    value={cardData.number}
+                    onChange={handleCardChange}
+                  />
+                </div>
+                <div className="optional-card-form__field optional-card-form__field--full">
+                  <label className="optional-card-form__label">Titular de la Tarjeta</label>
+                  <input
+                    type="text"
+                    name="name"
+                    className="optional-card-form__input"
+                    placeholder="COMO FIGURA EN LA TARJETA"
+                    value={cardData.name}
+                    onChange={handleCardChange}
+                  />
+                </div>
+                <div className="optional-card-form__field">
+                  <label className="optional-card-form__label">Vencimiento</label>
+                  <input
+                    type="text"
+                    name="expiry"
+                    className="optional-card-form__input"
+                    placeholder="MM/AA"
+                    value={cardData.expiry}
+                    onChange={handleCardChange}
+                  />
+                </div>
+                <div className="optional-card-form__field">
+                  <label className="optional-card-form__label">CVV</label>
+                  <input
+                    type="password"
+                    name="cvv"
+                    className="optional-card-form__input"
+                    placeholder="123"
+                    maxLength={4}
+                    value={cardData.cvv}
+                    onChange={handleCardChange}
+                  />
                 </div>
               </div>
             </div>
@@ -322,11 +378,11 @@ export default function Checkout() {
               {isProcessing ? (
                 <>
                   <span className="checkout-spinner" />
-                  Procesando...
+                  Procesando pago en {paymentMethod === 'paypal' ? 'PayPal' : 'MercadoPago'}...
                 </>
               ) : (
                 <>
-                  Confirmar Pago — {formatPrice(total, currency)} {currency}
+                  Pagar con {paymentMethod === 'paypal' ? 'PayPal' : 'MercadoPago'} — {formatPrice(total, currency)} {currency}
                 </>
               )}
             </button>
@@ -334,7 +390,6 @@ export default function Checkout() {
             {/* ══ Nota de Seguridad ══ */}
             <div className="checkout-security">
               <Shield className="checkout-security__icon" />
-              {/* 🔧 DATO MODIFICABLE */}
               <span>Pago 100% seguro y encriptado</span>
             </div>
           </div>

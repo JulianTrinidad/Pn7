@@ -37,7 +37,7 @@ function formatPrice(amount, currency) {
 }
 
 /* ══ SECCIÓN: COMPONENTE PRINCIPAL ══ */
-export default function PricingCard({ plan, currency, onSelect, isHorizontal = false }) {
+export default function PricingCard({ plan, currency, onSelect, onOpenDetail, isHorizontal = false }) {
   // Determinar el precio según la moneda seleccionada
   const price = currency === 'ARS' ? plan.priceARS : plan.priceUSD;
 
@@ -51,7 +51,7 @@ export default function PricingCard({ plan, currency, onSelect, isHorizontal = f
     isHorizontal ? 'pricing-card--horizontal' : '',
   ].join(' ').trim();
 
-  // Clases CSS para el botón (filled vs outlined)
+  // Clases CSS para el botón de compra
   const btnClasses = [
     'pricing-card__btn',
     plan.popular ? 'pricing-card__btn--filled' : 'pricing-card__btn--outlined',
@@ -87,13 +87,26 @@ export default function PricingCard({ plan, currency, onSelect, isHorizontal = f
                 </li>
               ))}
             </ul>
-            <button
-              className={btnClasses}
-              onClick={() => onSelect(plan)}
-              aria-label={`Elegir plan ${plan.name}`}
-            >
-              Elegir Plan
-            </button>
+            <div style={{ display: 'flex', gap: '0.75rem', width: '100%', marginTop: 'auto' }}>
+              {onOpenDetail && (
+                <button
+                  className="pricing-card__btn pricing-card__btn--outlined"
+                  onClick={() => onOpenDetail(plan)}
+                  aria-label={`Ver detalles de ${plan.name}`}
+                  style={{ flex: 1, padding: '0.75rem 0.5rem', fontSize: '0.9rem' }}
+                >
+                  Ver Detalles
+                </button>
+              )}
+              <button
+                className={btnClasses}
+                onClick={() => onSelect(plan)}
+                aria-label={`Elegir plan ${plan.name}`}
+                style={{ flex: 1.2, padding: '0.75rem 0.5rem', fontSize: '0.9rem' }}
+              >
+                Comprar
+              </button>
+            </div>
           </div>
         </div>
       ) : (
@@ -123,14 +136,27 @@ export default function PricingCard({ plan, currency, onSelect, isHorizontal = f
             ))}
           </ul>
 
-          {/* ══ Botón de Acción ══ */}
-          <button
-            className={btnClasses}
-            onClick={() => onSelect(plan)}
-            aria-label={`Elegir plan ${plan.name}`}
-          >
-            Elegir Plan
-          </button>
+          {/* ══ Botones de Acción ══ */}
+          <div style={{ display: 'flex', gap: '0.75rem', width: '100%', marginTop: 'auto', paddingTop: '1rem' }}>
+            {onOpenDetail && (
+              <button
+                className="pricing-card__btn pricing-card__btn--outlined"
+                onClick={() => onOpenDetail(plan)}
+                aria-label={`Ver detalles de ${plan.name}`}
+                style={{ flex: 1, padding: '0.8rem 0.5rem', fontSize: '0.9rem' }}
+              >
+                Ver Detalles
+              </button>
+            )}
+            <button
+              className={btnClasses}
+              onClick={() => onSelect(plan)}
+              aria-label={`Elegir plan ${plan.name}`}
+              style={{ flex: 1.2, padding: '0.8rem 0.5rem', fontSize: '0.9rem' }}
+            >
+              Comprar
+            </button>
+          </div>
         </>
       )}
     </div>

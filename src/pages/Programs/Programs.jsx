@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import PricingCard from './PricingCard';
+import ProgramDetailModal from './ProgramDetailModal';
 import plans, { CATEGORIES, CORE_PLANS } from '../../data/plans';
 import { useTheme } from '../../context/ThemeContext';
 import './Programs.css';
@@ -24,6 +25,7 @@ export default function Programs() {
   const [currency, setCurrency] = useState('ARS');
   const [activeCategory, setActiveCategory] = useState('todos');
   const [neonIndex, setNeonIndex] = useState(0);
+  const [selectedDetailPlan, setSelectedDetailPlan] = useState(null);
   const navigate = useNavigate();
 
   /* ══ SECCIÓN: FILTRADO Y ORDEN DE PLANES ══ */
@@ -142,6 +144,7 @@ export default function Programs() {
               plan={neonSortedPlans[neonIndex]}
               currency={currency}
               onSelect={handleSelectPlan}
+              onOpenDetail={setSelectedDetailPlan}
               isHorizontal={true}
             />
           </div>
@@ -154,10 +157,24 @@ export default function Programs() {
               plan={plan}
               currency={currency}
               onSelect={handleSelectPlan}
+              onOpenDetail={setSelectedDetailPlan}
               isHorizontal={false}
             />
           ))}
         </div>
+      )}
+
+      {/* ══ SECCIÓN: VENTANA MODAL DE DETALLE ══ */}
+      {selectedDetailPlan && (
+        <ProgramDetailModal
+          plan={selectedDetailPlan}
+          currency={currency}
+          onClose={() => setSelectedDetailPlan(null)}
+          onBuy={(p) => {
+            setSelectedDetailPlan(null);
+            handleSelectPlan(p);
+          }}
+        />
       )}
     </div>
   );
