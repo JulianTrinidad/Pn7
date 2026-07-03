@@ -1,0 +1,83 @@
+/* ══════════════════════════════════════════════════════════════════════════════
+   ESTILOS: WhatsAppButton — Botón flotante de WhatsApp
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* ══ SECCIÓN: BOTÓN PRINCIPAL ══ */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ══ SECCIÓN: HOVER — Escalar ligeramente ══ */
+.whatsapp-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-btn:active {
+  transform: scale(0.95);
+}
+
+/* ══ SECCIÓN: ICONO ══ */
+.whatsapp-btn__icon {
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* ══ SECCIÓN: ANIMACIÓN DE PULSO ══ */
+.whatsapp-btn__pulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, 0.4);
+  animation: whatsapp-pulse 2s ease-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Segundo pulso con retardo para efecto continuo */
+.whatsapp-btn__pulse--delayed {
+  animation-delay: 1s;
+}
+
+/* ══ SECCIÓN: KEYFRAMES DE PULSO ══ */
+@keyframes whatsapp-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   SECCIÓN: RESPONSIVE — Ajuste en móvil
+   ══════════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .whatsapp-btn {
+    width: 52px;
+    height: 52px;
+    bottom: 16px;
+    right: 16px;
+  }
+}

@@ -1,0 +1,271 @@
+/* ══════════════════════════════════════════════════════════════════════════════
+   ESTILOS: Header — Barra de navegación principal
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* ══ SECCIÓN: HEADER BASE — Difuminado Gradual al Scrollear Hacia Abajo ══ */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  /* El desenfoque y la opacidad crecen proporcionalmente de 0 a 1 según bajamos en la página */
+  background: rgba(var(--header-bg-rgb, 18, 18, 30), calc(0.15 + var(--scroll-progress, 0) * 0.77));
+  backdrop-filter: blur(calc(2px + var(--scroll-progress, 0) * 18px));
+  -webkit-backdrop-filter: blur(calc(2px + var(--scroll-progress, 0) * 18px));
+  border-bottom: 1px solid rgba(255, 255, 255, calc(var(--scroll-progress, 0) * 0.12));
+  box-shadow: 0 4px 24px rgba(0, 0, 0, calc(var(--scroll-progress, 0) * 0.35));
+  transition: background 0.15s linear, backdrop-filter 0.15s linear, box-shadow 0.15s linear;
+}
+
+/* ══ SECCIÓN: HEADER CON SCROLL (Clase de soporte) ══ */
+.header--scrolled {
+  background: rgba(var(--header-bg-rgb, 18, 18, 30), 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* ══ SECCIÓN: CONTENEDOR INTERNO ══ */
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 70px;
+}
+
+/* ══ SECCIÓN: LOGO ══ */
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--color-text-heading);
+  flex-shrink: 0;
+}
+
+.header__logo-icon {
+  color: var(--color-primary);
+  transition: transform 0.3s ease;
+}
+
+.header__logo:hover .header__logo-icon {
+  transform: rotate(-15deg) scale(1.1);
+}
+
+.header__logo-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: var(--color-text-heading);
+}
+
+/* ══ SECCIÓN: NAVEGACIÓN PRINCIPAL (ESCRITORIO) ══ */
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header__nav-item {
+  position: relative;
+}
+
+.header__nav-link {
+  display: inline-block;
+  padding: 8px 16px;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.header__nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 60%;
+  height: 2px;
+  background: var(--color-primary);
+  transition: transform 0.3s ease;
+  border-radius: 1px;
+}
+
+.header__nav-link:hover {
+  color: var(--color-text-heading);
+}
+
+.header__nav-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* ══ SECCIÓN: ENLACE ACTIVO — Borde inferior ══ */
+.header__nav-link--active {
+  color: var(--color-primary);
+}
+
+.header__nav-link--active::after {
+  transform: translateX(-50%) scaleX(1);
+  background: var(--color-primary);
+}
+
+/* ══ SECCIÓN: BOTÓN CTA ══ */
+.header__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 24px;
+  background: var(--color-primary);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-radius: 6px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+}
+
+.header__cta:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px var(--color-accent-glow);
+}
+
+/* ══ SECCIÓN: BOTÓN HAMBURGUESA (SOLO MÓVIL) ══ */
+.header__hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--color-text-heading);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.header__hamburger:hover {
+  background: var(--color-surface-hover);
+}
+
+/* ══ SECCIÓN: OVERLAY DEL MENÚ MÓVIL ══ */
+.header__mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 70px);
+  background: var(--color-overlay);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 999;
+}
+
+.header__mobile-overlay--open {
+  transform: translateX(0);
+}
+
+/* ══ SECCIÓN: NAVEGACIÓN MÓVIL ══ */
+.header__mobile-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 40px 24px;
+  gap: 16px;
+}
+
+.header__mobile-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.header__mobile-item {
+  width: 100%;
+  text-align: center;
+}
+
+.header__mobile-link {
+  display: block;
+  padding: 16px 24px;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-radius: 8px;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+.header__mobile-link:hover {
+  color: var(--color-text-heading);
+  background: var(--color-surface-hover);
+}
+
+.header__mobile-link--active {
+  color: var(--color-primary);
+  background: var(--color-surface);
+  border-left: 3px solid var(--color-primary);
+}
+
+/* ══ SECCIÓN: THEME SWITCHER EN MÓVIL ══ */
+.header__mobile-theme {
+  margin: 16px 0;
+}
+
+/* ══ SECCIÓN: CTA EN MÓVIL ══ */
+.header__cta--mobile {
+  width: 80%;
+  justify-content: center;
+  padding: 14px 24px;
+  font-size: 1.1rem;
+  margin-top: 8px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   SECCIÓN: RESPONSIVE — Tablet y Móvil
+   ══════════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 868px) {
+  /* Ocultar navegación y CTA de escritorio */
+  .header__nav {
+    display: none;
+  }
+
+  .header__cta:not(.header__cta--mobile) {
+    display: none;
+  }
+
+  /* Mostrar hamburguesa y overlay */
+  .header__hamburger {
+    display: flex;
+  }
+
+  .header__mobile-overlay {
+    display: block;
+  }
+}

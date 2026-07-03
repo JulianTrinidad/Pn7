@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- ══ SECCIÓN: META TAGS ESENCIALES ══ -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- ══ SECCIÓN: SEO Y META DESCRIPCIÓN ══ -->
+    <!-- 🔧 DATO MODIFICABLE: Título del sitio -->
+    <title>PowerGym | Tu Gimnasio de Élite</title>
+    <!-- 🔧 DATO MODIFICABLE: Descripción para motores de búsqueda -->
+    <meta
+      name="description"
+      content="PowerGym — Entrenamiento personalizado de élite. Transforma tu cuerpo con programas diseñados por instructores certificados. Resultados garantizados."
+    />
+    <!-- 🔧 DATO MODIFICABLE: Palabras clave para SEO -->
+    <meta
+      name="keywords"
+      content="gimnasio, entrenamiento personal, fitness, musculación, CrossFit, nutrición deportiva, PowerGym"
+    />
+    <meta name="author" content="PowerGym" />
+
+    <!-- ══ SECCIÓN: OPEN GRAPH (REDES SOCIALES) ══ -->
+    <!-- 🔧 DATO MODIFICABLE: Meta tags para redes sociales -->
+    <meta property="og:title" content="PowerGym | Tu Gimnasio de Élite" />
+    <meta
+      property="og:description"
+      content="Transforma tu cuerpo con entrenamiento personalizado de élite. Programas adaptados a tus objetivos."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+
+    <!-- ══ SECCIÓN: FAVICON ══ -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- ══ SECCIÓN: GOOGLE FONTS — PRECONNECT PARA OPTIMIZAR CARGA ══ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- ══ SECCIÓN: GOOGLE FONTS — CARGA DE TIPOGRAFÍAS ══ -->
+    <!--
+      Fuentes utilizadas por los 3 temas:
+      - Bebas Neue: Encabezados del tema "energy"
+      - Inter: Cuerpo del tema "energy"
+      - Playfair Display: Encabezados del tema "premium"
+      - DM Sans: Cuerpo del tema "premium"
+      - Orbitron: Encabezados del tema "neon"
+      - Outfit: Cuerpo del tema "neon"
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Orbitron:wght@400..900&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ══ SECCIÓN: SCRIPT ANTI-FLASH DE TEMA ══ -->
+    <!--
+      Este script se ejecuta ANTES de que se renderice el contenido visible.
+      Aplica el tema guardado en localStorage al elemento <html> para evitar
+      un flash de contenido sin tema (FOUT) al cargar la página.
+    -->
+    <script>
+      (function () {
+        /* 🔧 DATO MODIFICABLE: Tema por defecto si no hay ninguno guardado */
+        var defaultTheme = "energy";
+        var storageKey = "powergym-theme";
+        var validThemes = ["energy", "premium", "neon"];
+
+        try {
+          var savedTheme = localStorage.getItem(storageKey);
+          if (savedTheme && validThemes.indexOf(savedTheme) !== -1) {
+            document.documentElement.setAttribute("data-theme", savedTheme);
+          } else {
+            document.documentElement.setAttribute("data-theme", defaultTheme);
+          }
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", defaultTheme);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- ══ SECCIÓN: CONTENEDOR RAÍZ DE REACT ══ -->
+    <div id="root"></div>
+
+    <!-- ══ SECCIÓN: SCRIPT PRINCIPAL DE LA APLICACIÓN ══ -->
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
