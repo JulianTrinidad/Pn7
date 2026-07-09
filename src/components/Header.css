@@ -30,36 +30,43 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 24px;
-  height: 70px;
+  padding: 8px 24px;
+  min-height: 120px;
+  height: auto;
 }
 
 /* ══ SECCIÓN: LOGO ══ */
 .header__logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   text-decoration: none;
   color: var(--color-text-heading);
   flex-shrink: 0;
+  padding: 4px 0;
 }
 
-.header__logo-icon {
-  color: var(--color-primary);
+.header__logo-img {
+  height: 95px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
   transition: transform 0.3s ease;
 }
 
-.header__logo:hover .header__logo-icon {
-  transform: rotate(-15deg) scale(1.1);
+.header__logo-letras {
+  height: 75px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+  transition: transform 0.3s ease;
 }
 
-.header__logo-text {
-  font-size: 1.4rem;
-  font-weight: 800;
-  letter-spacing: 3px;
-  color: var(--color-text-heading);
+.header__logo:hover .header__logo-img,
+.header__logo:hover .header__logo-letras {
+  transform: scale(1.04);
 }
 
 /* ══ SECCIÓN: NAVEGACIÓN PRINCIPAL (ESCRITORIO) ══ */
@@ -251,6 +258,7 @@
    SECCIÓN: RESPONSIVE — Tablet y Móvil
    ══════════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 868px) {
+
   /* Ocultar navegación y CTA de escritorio */
   .header__nav {
     display: none;
@@ -267,5 +275,19 @@
 
   .header__mobile-overlay {
     display: block;
+  }
+
+  .header__logo {
+    gap: 8px;
+  }
+
+  .header__logo-img {
+    height: 60px;
+    max-width: 130px;
+  }
+
+  .header__logo-letras {
+    height: 45px;
+    max-width: 190px;
   }
 }

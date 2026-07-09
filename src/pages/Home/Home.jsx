@@ -1,40 +1,34 @@
 /* ══════════════════════════════════════════════════════════════
-   COMPONENTE: Página Principal (Home) con Scroll por Secciones
-   Enfoque: Entrenador Personal (Personal Trainer)
-   Incluye Inicio, Sobre Mí, Programas y Contacto.
-   Todos los textos están en español con datos dummy
-   marcados como 🔧 MODIFICABLE.
+   COMPONENTE: Página Principal (Home)
+   Estructura: Hero → Programas → Footer
    ══════════════════════════════════════════════════════════════ */
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router";
-import {
-  ArrowRight,
-  Dumbbell,
-  Users,
-  Heart,
-  Star,
-  ChevronRight,
-  Sparkles,
-  Target,
-  MessageCircle,
-} from "lucide-react";
-import testimonials from "../../data/testimonials";
-import About from "../About/About";
-import Programs from "../Programs/Programs";
-import Contact from "../Contact/Contact";
+import { ArrowRight, X, Clock, Calendar, BarChart3, Target, Check, Award } from "lucide-react";
+import { PROGRAMS } from "../../data/plans";
+import headerImg from "../../assets/header.jpeg";
+import coachingImg from "../../assets/1.1.jpeg";
+import sobremiImg from "../../assets/sobremi.jpeg";
 
 import "./Home.css";
 
+/* ══ FUNCIÓN: FORMATEAR PRECIO ══ */
+function formatPrice(amount, currency) {
+  if (currency === "ARS") {
+    return `$${amount.toLocaleString("es-AR")}`;
+  }
+  return `$${amount.toLocaleString("en-US")}`;
+}
+
 /* ══ SUB-COMPONENTE: HERO SECTION ══ */
 function HeroSection() {
-
   return (
     <section className="hero">
       {/* Imagen principal de fondo del Hero */}
       <div className="hero__background">
         <img
-          src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600" /* 🔧 MODIFICABLE */
+          src={headerImg} /* 🔧 MODIFICABLE */
           alt="Entrenamiento Personal en Acción" /* 🔧 MODIFICABLE */
           loading="eager"
         />
@@ -51,24 +45,23 @@ function HeroSection() {
 
         {/* 🔧 MODIFICABLE: Título principal */}
         <h1 className="hero__title">
-          Transformá Tu Cuerpo Con <span>Estrategia Real</span>
+          PROGRESA EN TU ENTRENAMIENTO CON <span>ESTRATEGIA REAL</span>
         </h1>
 
         {/* 🔧 MODIFICABLE: Subtítulo descriptivo */}
         <p className="hero__subtitle">
-          Olvidate de las rutinas genéricas que no dan resultados. Planificación científica,
-          seguimiento diario biomecánico y nutrición flexible diseñada para tu estilo de vida.
+          Dejá de entrenar sin rumbo. Seguí un plan estructurado y alcanzá tus objetivos.
         </p>
 
         {/* Botones de acción */}
         <div className="hero__actions">
-          <Link to="/programas" className="hero__cta">
+          <a href="#programas" className="hero__cta">
             Ver Programas
             <ArrowRight size={20} />
-          </Link>
-          <Link to="/contacto" className="btn btn-secondary btn-lg" style={{ padding: "1rem 2.2rem", borderRadius: "50px", fontWeight: 700 }}>
-            Agendar Consulta Gratis
-          </Link>
+          </a>
+          <a href="#coaching-1-1" className="btn btn-secondary btn-lg" style={{ padding: "1rem 2.2rem", borderRadius: "50px", fontWeight: 700 }}>
+            COACHING 1:1
+          </a>
         </div>
       </div>
 
@@ -92,131 +85,353 @@ function HeroSection() {
   );
 }
 
-/* ══ SUB-COMPONENTE: SECCIÓN DE BENEFICIOS ══ */
-function BenefitsSection() {
-
-  /* 🔧 MODIFICABLE: Array de beneficios del coaching 1 a 1 */
-  const benefits = [
-    {
-      id: 1,
-      icon: <Target size={32} />,
-      title: "Rutinas 100% a Tu Medida", // 🔧 MODIFICABLE
-      description:
-        "Diseñadas estratégicamente para tu nivel de experiencia, anatomía y tiempo disponible, ya sea que entrenes en un gimnasio comercial o desde tu casa.", // 🔧 MODIFICABLE
-    },
-    {
-      id: 2,
-      icon: <Sparkles size={32} />,
-      title: "Nutrición Flexible y Sostenible", // 🔧 MODIFICABLE
-      description:
-        "Olvídate de pasar hambre con dietas extremas. Aprenderás a nutrir tu cuerpo combinando tus comidas favoritas mientras optimizás tu pérdida de grasa y ganancia muscular.", // 🔧 MODIFICABLE
-    },
-    {
-      id: 3,
-      icon: <MessageCircle size={32} />,
-      title: "Seguimiento Diario por WhatsApp", // 🔧 MODIFICABLE
-      description:
-        "Revisión técnica en video, corrección de postura al instante, ajustes de carga y motivación constante conmigo en tu bolsillo para no estancarte jamás.", // 🔧 MODIFICABLE
-    },
-  ];
-
-
+/* ══ SUB-COMPONENTE: CARD DE PROGRAMA ══ */
+function ProgramCard({ program, onClick }) {
   return (
-    <section className="benefits">
-      <div className="benefits__container">
-        {/* Encabezado de sección */}
-        <div className="benefits__header">
-          <span className="section-tag">Metodología 1 a 1</span>
-          <h2 className="section-title">¿Por qué entrenar con un Personal Trainer?</h2>
-          <p className="section-subtitle">
-            El 90% de las personas abandonan el gimnasio al entrenar solas por falta de guía y estancamiento. Con mi sistema tendrás dirección clara y resultados garantizados.
-          </p>
-        </div>
+    <article className="program-card" onClick={() => onClick(program)}>
+      {/* Imagen de fondo */}
+      <div className="program-card__image-wrapper">
+        <img
+          src={program.image}
+          alt={program.name}
+          className="program-card__image"
+          loading="lazy"
+        />
+      </div>
 
-        {/* Grilla de tarjetas de beneficios */}
-        <div className="benefits__grid">
-          {benefits.map((benefit) => (
-            <article key={benefit.id} className="benefit-card">
-              <div className="benefit-card__icon">{benefit.icon}</div>
-              <h3 className="benefit-card__title">{benefit.title}</h3>
-              <p className="benefit-card__desc">{benefit.description}</p>
-            </article>
-          ))}
+      {/* Overlay oscuro para legibilidad */}
+      <div className="program-card__overlay" />
+
+      {/* Badge popular */}
+      {program.popular && (
+        <span className="program-card__badge">⭐ Popular</span>
+      )}
+
+      {/* Contenido de texto sobre la imagen */}
+      <div className="program-card__content">
+        <h3 className="program-card__title">{program.name}</h3>
+        <span className="program-card__duration">{program.duration}</span>
+        <p className="program-card__desc">{program.shortDesc}</p>
+
+        {/* Precios */}
+        <div className="program-card__prices">
+          <span className="program-card__price">
+            ${program.priceARS.toLocaleString("es-AR")} ARS
+          </span>
+          <span className="program-card__price-divider">|</span>
+          <span className="program-card__price">
+            ${program.priceUSD} USD
+          </span>
         </div>
       </div>
-    </section>
+    </article>
   );
 }
 
-/* ══ SUB-COMPONENTE: SECCIÓN DE TESTIMONIOS ══ */
-function TestimonialsSection() {
+/* ══ SUB-COMPONENTE: MODAL DE DETALLE DE PROGRAMA ══ */
+function ProgramModal({ program, onClose }) {
+  if (!program) return null;
+
+  const details = program.details || {};
+
+  /* Cerrar al hacer clic en el overlay */
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) onClose();
+  };
+
+  /* Prevenir scroll del body cuando el modal está abierto */
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
 
   return (
-    <section className="testimonials">
-      <div className="testimonials__container">
-        {/* Encabezado de sección */}
-        <div className="testimonials__header">
-          <span className="section-tag">Casos de Éxito</span>
-          {/* 🔧 MODIFICABLE: Título y subtítulo */}
-          <h2 className="section-title">Lo que dicen mis alumnos</h2>
-          <p className="section-subtitle">
-            Historias reales de personas ordinarias logrando transformaciones extraordinarias con nuestro acompañamiento 1 a 1.
-          </p>
+    <div className="program-modal__overlay" onClick={handleOverlayClick}>
+      <div className="program-modal__container">
+        {/* Botón Cerrar */}
+        <button className="program-modal__close" onClick={onClose} aria-label="Cerrar detalle">
+          <X size={24} />
+        </button>
+
+        {/* Header del modal con imagen */}
+        <div className="program-modal__hero">
+          <img src={program.image} alt={program.name} className="program-modal__hero-img" />
+          <div className="program-modal__hero-overlay" />
+          <div className="program-modal__hero-content">
+            {program.popular && <span className="program-modal__badge">⭐ Más Popular</span>}
+            <h2 className="program-modal__title">{program.name}</h2>
+            <span className="program-modal__duration">{program.duration}</span>
+          </div>
         </div>
 
-        {/* Grilla de tarjetas de testimonio */}
-        <div className="testimonials__grid">
-          {testimonials.map((item) => (
-            <article key={item.id} className="testimonial-card">
-              {/* Estrellas de valoración */}
-              <div className="testimonial-card__stars">
-                {Array.from({ length: item.rating }).map((_, idx) => (
-                  <Star
-                    key={idx}
-                    size={16}
-                    className="testimonial-card__star"
-                    fill="currentColor"
-                  />
-                ))}
-              </div>
+        {/* Precios */}
+        <div className="program-modal__prices">
+          <div className="program-modal__price-item">
+            <span className="program-modal__price-amount">${program.priceARS.toLocaleString("es-AR")}</span>
+            <span className="program-modal__price-currency">ARS</span>
+          </div>
+          <div className="program-modal__price-divider" />
+          <div className="program-modal__price-item">
+            <span className="program-modal__price-amount">${program.priceUSD}</span>
+            <span className="program-modal__price-currency">USD</span>
+          </div>
+        </div>
 
-              {/* Texto del testimonio */}
-              <p className="testimonial-card__text">"{item.text}"</p>
+        {/* Descripción completa */}
+        <div className="program-modal__section">
+          <p className="program-modal__full-desc">{details.fullDescription}</p>
+        </div>
 
-              {/* Autor del testimonio */}
-              <div className="testimonial-card__author">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="testimonial-card__avatar"
-                  loading="lazy"
-                />
-                <div className="testimonial-card__info">
-                  <h4 className="testimonial-card__name">{item.name}</h4>
-                  <span className="testimonial-card__role">{item.role}</span>
+        {/* Stats Rápidos */}
+        <div className="program-modal__stats">
+          <div className="program-modal__stat">
+            <Clock className="program-modal__stat-icon" size={20} />
+            <span className="program-modal__stat-value">{program.duration}</span>
+            <span className="program-modal__stat-label">Duración</span>
+          </div>
+          <div className="program-modal__stat">
+            <Calendar className="program-modal__stat-icon" size={20} />
+            <span className="program-modal__stat-value">{details.sessionsPerWeek} sesiones</span>
+            <span className="program-modal__stat-label">Por semana</span>
+          </div>
+          <div className="program-modal__stat">
+            <BarChart3 className="program-modal__stat-icon" size={20} />
+            <span className="program-modal__stat-value">{details.level}</span>
+            <span className="program-modal__stat-label">Nivel</span>
+          </div>
+        </div>
+
+        {/* Qué incluye */}
+        <div className="program-modal__section">
+          <h3 className="program-modal__section-title">Qué incluye</h3>
+          <ul className="program-modal__features">
+            {program.features.map((feature, i) => (
+              <li key={i} className="program-modal__feature">
+                <Check className="program-modal__feature-icon" size={16} />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Objetivos */}
+        {details.objectives && details.objectives.length > 0 && (
+          <div className="program-modal__section">
+            <h3 className="program-modal__section-title">
+              <Target size={18} />
+              Objetivos del programa
+            </h3>
+            <ul className="program-modal__objectives">
+              {details.objectives.map((obj, i) => (
+                <li key={i} className="program-modal__objective">{obj}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Roadmap */}
+        {details.roadmap && details.roadmap.length > 0 && (
+          <div className="program-modal__section">
+            <h3 className="program-modal__section-title">Ruta del programa</h3>
+            <div className="program-modal__roadmap">
+              {details.roadmap.map((phase, i) => (
+                <div key={i} className="program-modal__phase">
+                  <div className="program-modal__phase-dot" />
+                  <div className="program-modal__phase-content">
+                    <span className="program-modal__phase-week">{phase.week}</span>
+                    <span className="program-modal__phase-focus">{phase.focus}</span>
+                    <p className="program-modal__phase-desc">{phase.description}</p>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
-        </div>
+              ))}
+            </div>
+          </div>
+        )}
 
-        {/* Enlace a la sección Sobre Mí */}
-        <div className="testimonials__footer">
-          <a href="#sobre-mi" className="testimonials__link">
-            Conocé más sobre mi filosofía y trayectoria
-            <ChevronRight size={18} />
+        {/* CTA */}
+        <div className="program-modal__cta">
+          <a
+            href="https://wa.me/5491123456789"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="program-modal__cta-btn"
+          >
+            Consultar por este programa
           </a>
         </div>
       </div>
+    </div>
+  );
+}
+
+/* ══ SUB-COMPONENTE: SECCIÓN DE PROGRAMAS ══ */
+function ProgramsSection() {
+  const [selectedProgram, setSelectedProgram] = useState(null);
+
+  return (
+    <section className="programs-section">
+      <div className="programs-section__container">
+        {/* Encabezado */}
+        <div className="programs-section__header">
+          <span className="section-tag">Nuestros Planes</span>
+          <h2 className="section-title programs-section__title">PROGRAMAS DE ENTRENAMIENTO</h2>
+          <p className="section-subtitle">
+            Elegí el programa que mejor se adapte a tus objetivos. Hacé click en cualquiera para ver todos los detalles.
+          </p>
+        </div>
+
+        {/* Grilla de 6 cards */}
+        <div className="programs-section__grid">
+          {PROGRAMS.map((program) => (
+            <ProgramCard
+              key={program.id}
+              program={program}
+              onClick={setSelectedProgram}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Modal de detalle */}
+      {selectedProgram && (
+        <ProgramModal
+          program={selectedProgram}
+          onClose={() => setSelectedProgram(null)}
+        />
+      )}
     </section>
   );
 }
 
-/* ══ COMPONENTE PRINCIPAL: HOME (UNA SOLA PÁGINA CON SCROLL) ══ */
+/* ══ SUB-COMPONENTE: SECCIÓN COACHING 1:1 ══ */
+function CoachingSection() {
+  return (
+    <section className="coaching-section">
+      <div className="coaching-section__container">
+        {/* Columna Izquierda: Contenido */}
+        <div className="coaching-section__content">
+          <span className="section-tag">Modalidad Exclusiva</span>
+          <h2 className="section-title coaching-section__title">COACHING 1:1</h2>
+          
+          <p className="coaching-section__text">
+            en esta modalidad de entrenamiento vas a poder acceder a una rutina 100% personalizada y adaptada a vos. Entrenamiento, nutrición, seguimiento constante
+          </p>
+
+          <ul className="coaching-section__features">
+            <li className="coaching-section__feature-item">
+              <Check className="coaching-section__feature-icon" size={20} />
+              <div>
+                <strong>Rutina 100% Personalizada:</strong> Planificación diseñada a medida según tu anatomía, nivel actual y lugar de entrenamiento.
+              </div>
+            </li>
+            <li className="coaching-section__feature-item">
+              <Check className="coaching-section__feature-icon" size={20} />
+              <div>
+                <strong>Guía de Nutrición Adaptada:</strong> Estrategia de alimentación con cálculo y ajuste periódico para optimizar tu rendimiento.
+              </div>
+            </li>
+            <li className="coaching-section__feature-item">
+              <Check className="coaching-section__feature-icon" size={20} />
+              <div>
+                <strong>Seguimiento Constante por WhatsApp:</strong> Contacto directo para despejar dudas, mantener la motivación y ajustar cargas.
+              </div>
+            </li>
+            <li className="coaching-section__feature-item">
+              <Check className="coaching-section__feature-icon" size={20} />
+              <div>
+                <strong>Revisión de Técnica en Video:</strong> Análisis biomecánico de tu ejecución para prevenir lesiones y maximizar resultados.
+              </div>
+            </li>
+          </ul>
+
+          <div className="coaching-section__actions">
+            <a
+              href="https://wa.me/5491123456789?text=Hola%20Santi,%20quiero%20empezar%20con%20el%20Coaching%201:1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero__cta"
+            >
+              Solicitar Coaching 1:1
+              <ArrowRight size={20} />
+            </a>
+          </div>
+        </div>
+
+        {/* Columna Derecha: Imagen 1.1 */}
+        <div className="coaching-section__image-wrapper">
+          <img
+            src={coachingImg}
+            alt="Coaching 1:1 Personalizado con Santi Ferrer"
+            className="coaching-section__image"
+            loading="lazy"
+          />
+          <div className="coaching-section__badge">
+            <Check size={20} className="coaching-section__badge-icon" />
+            <div>
+              <strong>100% Adaptado</strong>
+              <span>A Tu Estilo de Vida</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ══ SUB-COMPONENTE: SECCIÓN SOBRE MÍ ══ */
+function AboutSection() {
+  return (
+    <section className="about-section">
+      <div className="about-section__container">
+        {/* Columna Izquierda: Imagen */}
+        <div className="about-section__image-wrapper">
+          <img
+            src={sobremiImg}
+            alt="Santi Ferrer - Entrenador y Atleta Híbrido"
+            className="about-section__image"
+            loading="lazy"
+          />
+          <div className="about-section__badge">
+            <Award size={22} className="about-section__badge-icon" />
+            <div>
+              <strong>Santi Ferrer</strong>
+              <span>Entrenador & Atleta Híbrido</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Columna Derecha: Contenido y Biografía */}
+        <div className="about-section__content">
+          <span className="section-tag">Conocé a Tu Coach</span>
+          <h2 className="section-title about-section__title">SOBRE MÍ</h2>
+          
+          <div className="about-section__bio">
+            <p className="about-section__lead">
+              Soy Santi Ferrer, Entrenador, atleta y creador de contenido.
+            </p>
+            <p>
+              El deporte me acompaña desde chico, empece a entrenar y nuncá paré. Estudié actividad física y deporte, soy competidor de kick boxing y atleta híbrido.
+            </p>
+            <p>
+              Como entrenador me especializo en desarrollo de fuerza, rendimiento deportivo y deportes de combate. Mi enfoque combina evidencia científica con experiencia práctica para ayudar a atletas y personas activas a alcanzar su máximo potencial.
+            </p>
+            <p className="about-section__quote">
+              sé lo que es entrenar sin un método y no ver resultados, por eso mi objetivo es ayudarte a entrenar con propósito, con una base solida y un progreso que realmente puedas ver.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ══ COMPONENTE PRINCIPAL: HOME ══ */
 export default function Home() {
   const location = useLocation();
 
-  /* Efecto para scrollear automáticamente cuando cambia el hash (#inicio, #sobre-mi, etc.) */
+  /* Efecto para scrollear automáticamente cuando cambia el hash (#inicio, #programas, #coaching-1-1, #sobre-mi) */
   useEffect(() => {
     if (location.hash) {
       const sectionId = location.hash.substring(1);
@@ -240,36 +455,24 @@ export default function Home() {
         </section>
       </div>
 
-      {/* ══ CARTA 2: BENEFICIOS ══ */}
-      <div className="deck-card-wrapper" id="wrapper-beneficios">
-        <section id="beneficios" className="deck-card">
-          <BenefitsSection />
-        </section>
-      </div>
-
-      {/* ══ CARTAS 3, 4, 5, 6: SOBRE MÍ (Contiene sus propios wrappers de cartas divididas) ══ */}
-      <div id="sobre-mi" className="about-wrapper">
-        <About />
-      </div>
-
-      {/* ══ CARTA 7: PROGRAMAS ══ */}
+      {/* ══ CARTA 2: PROGRAMAS DE ENTRENAMIENTO ══ */}
       <div className="deck-card-wrapper" id="wrapper-programas">
         <section id="programas" className="deck-card">
-          <Programs />
+          <ProgramsSection />
         </section>
       </div>
 
-      {/* ══ CARTA 8: COMENTARIOS / TESTIMONIOS ══ */}
-      <div className="deck-card-wrapper" id="wrapper-testimonios">
-        <div className="deck-card testimonials-card">
-          <TestimonialsSection />
-        </div>
+      {/* ══ CARTA 3: COACHING 1:1 ══ */}
+      <div className="deck-card-wrapper" id="wrapper-coaching">
+        <section id="coaching-1-1" className="deck-card">
+          <CoachingSection />
+        </section>
       </div>
 
-      {/* ══ CARTA 9: CONTACTO ══ */}
-      <div className="deck-card-wrapper" id="wrapper-contacto">
-        <section id="contacto" className="deck-card">
-          <Contact />
+      {/* ══ CARTA 4: SOBRE MÍ ══ */}
+      <div className="deck-card-wrapper" id="wrapper-sobremi">
+        <section id="sobre-mi" className="deck-card">
+          <AboutSection />
         </section>
       </div>
     </main>

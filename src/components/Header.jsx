@@ -5,15 +5,17 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { Menu, X, Dumbbell } from "lucide-react";
+import logoImg from "../assets/logo.png";
+import letrasImg from "../assets/letras.png";
 import "./Header.css";
 
 /* ══ SECCIÓN: DATOS DE NAVEGACIÓN POR SECCIÓN ══ */
 /* 🔧 DATO MODIFICABLE: enlaces de navegación */
 const NAV_LINKS = [
   { id: "inicio", hash: "#inicio", label: "Inicio" },
-  { id: "sobre-mi", hash: "#sobre-mi", label: "Sobre mí" },
   { id: "programas", hash: "#programas", label: "Programas" },
-  { id: "contacto", hash: "#contacto", label: "Contacto" },
+  { id: "coaching-1-1", hash: "#coaching-1-1", label: "Coaching 1:1" },
+  { id: "sobre-mi", hash: "#sobre-mi", label: "Sobre mí" },
 ];
 
 /* 🔧 DATO MODIFICABLE: nombre del entrenador o marca */
@@ -108,9 +110,8 @@ function Header() {
           className="header__logo"
           onClick={(e) => handleNavClick(e, NAV_LINKS[0])}
         >
-          <Dumbbell className="header__logo-icon" size={28} />
-          {/* 🔧 DATO MODIFICABLE: nombre del gym */}
-          <span className="header__logo-text">{GYM_NAME}</span>
+          <img src={logoImg} alt="Logo" className="header__logo-img" />
+          <img src={letrasImg} alt={GYM_NAME} className="header__logo-letras" />
         </a>
 
         {/* ══ SECCIÓN: NAVEGACIÓN PRINCIPAL (ESCRITORIO) ══ */}

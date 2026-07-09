@@ -10,6 +10,8 @@ import {
   Clock,
   ChevronUp,
 } from "lucide-react";
+import logoImg from "../assets/logo.png";
+import letrasImg from "../assets/letras.png";
 import "./Footer.css";
 
 /* ══ ICONOS SVG DE REDES SOCIALES ══ */
@@ -53,8 +55,8 @@ function YoutubeIcon({ size = 20 }) {
 const QUICK_LINKS = [
   { hash: "#inicio", label: "Inicio" },
   { hash: "#programas", label: "Programas" },
+  { hash: "#coaching-1-1", label: "Coaching 1:1" },
   { hash: "#sobre-mi", label: "Sobre mí" },
-  { hash: "#contacto", label: "Contacto" },
 ];
 
 /* 🔧 DATO MODIFICABLE: dirección de sesiones o modalidad */
@@ -104,9 +106,8 @@ function Footer() {
         {/* ══ COLUMNA 1: Marca y Descripción ══ */}
         <div className="footer__column footer__column--brand">
           <a href="#inicio" className="footer__logo">
-            <Dumbbell className="footer__logo-icon" size={26} />
-            {/* 🔧 DATO MODIFICABLE: nombre del gym */}
-            <span className="footer__logo-text">{GYM_NAME}</span>
+            <img src={logoImg} alt="Logo" className="footer__logo-img" />
+            <img src={letrasImg} alt={GYM_NAME} className="footer__logo-letras" />
           </a>
           {/* 🔧 DATO MODIFICABLE: descripción del gym */}
           <p className="footer__description">{GYM_DESCRIPTION}</p>

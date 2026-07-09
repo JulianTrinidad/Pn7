@@ -65,14 +65,6 @@ const router = createBrowserRouter([
         path: "programas",
         element: <Navigate to="/#programas" replace />,
       },
-      {
-        path: "sobre-mi",
-        element: <Navigate to="/#sobre-mi" replace />,
-      },
-      {
-        path: "contacto",
-        element: <Navigate to="/#contacto" replace />,
-      },
     ],
   },
 ]);

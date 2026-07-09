@@ -74,18 +74,21 @@ table {
   --color-bg-card: #1a1a1a;
   --color-text: #ffffff;
   --color-text-secondary: #a0a0a0;
-  --color-primary: #e63946;
-  --color-primary-hover: #ff4d5a;
-  --color-accent: #e63946;
+  --color-primary: #606e85;
+  --color-primary-hover: #73839e;
+  --color-accent: #606e85;
   --color-border: #2a2a2a;
-  --color-gradient-start: #e63946;
-  --color-gradient-end: #ff6b6b;
+  --color-gradient-start: #606e85;
+  --color-gradient-end: #73839e;
+  --color-primary-rgb: 96, 110, 133;
+  --color-gradient-start-rgb: 96, 110, 133;
+  --color-gradient-end-rgb: 115, 131, 158;
   --header-bg-rgb: 10, 10, 10;
   --font-heading: "Bebas Neue", sans-serif;
   --font-body: "Inter", sans-serif;
   --border-radius: 8px;
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 8px 32px rgba(230, 57, 70, 0.15);
+  --shadow-lg: 0 8px 32px rgba(96, 110, 133, 0.15);
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -99,10 +102,10 @@ table {
 /* ── TEMA ENERGÍA: Respiración Cyber & Pulso Dinámico ── */
 @keyframes energyPulse {
   0%, 100% {
-    box-shadow: 0 4px 15px rgba(230, 57, 70, 0.25);
+    box-shadow: 0 4px 15px rgba(96, 110, 133, 0.25);
   }
   50% {
-    box-shadow: 0 6px 28px rgba(230, 57, 70, 0.55);
+    box-shadow: 0 6px 28px rgba(96, 110, 133, 0.55);
     transform: translateY(-2px);
   }
 }
@@ -575,7 +578,7 @@ small {
 
 .form-input:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
+  box-shadow: 0 0 0 3px rgba(96, 110, 133, 0.15);
 }
 
 .form-input::placeholder {
@@ -598,7 +601,7 @@ small {
 
 .form-textarea:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
+  box-shadow: 0 0 0 3px rgba(96, 110, 133, 0.15);
 }
 
 /* ══ SECCIÓN: CLASES DE UTILIDAD — BADGES ══ */

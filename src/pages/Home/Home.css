@@ -1,7 +1,6 @@
 /* ══════════════════════════════════════════════════════════════
    ESTILOS: Página Principal (Home)
-   Todas las propiedades de color usan var() para respetar
-   el sistema de temas (claro/oscuro).
+   Secciones: Hero + Programas de Entrenamiento
    ══════════════════════════════════════════════════════════════ */
 
 /* ══ SECCIÓN: HERO PRINCIPAL ══ */
@@ -204,24 +203,14 @@
   letter-spacing: 2px;
 }
 
-/* ══ SECCIÓN: BENEFICIOS ══ */
-.benefits {
-  padding: 6rem 1.5rem;
-  background-color: var(--color-bg);
-}
-
-.benefits__container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
+/* ══ SECCIÓN: UTILIDADES DE SECCIÓN ══ */
 .section-tag {
   display: inline-block;
   padding: 0.35rem 1rem;
   background: linear-gradient(
     135deg,
-    rgba(var(--color-gradient-start-rgb, 99, 102, 241), 0.1),
-    rgba(var(--color-gradient-end-rgb, 168, 85, 247), 0.1)
+    rgba(var(--color-gradient-start-rgb, 96, 110, 133), 0.1),
+    rgba(var(--color-gradient-end-rgb, 115, 131, 158), 0.1)
   );
   border: 1px solid var(--color-border);
   border-radius: 50px;
@@ -252,280 +241,586 @@
   line-height: 1.7;
 }
 
-.benefits__header {
+
+/* ══════════════════════════════════════════════════════════════
+   SECCIÓN: PROGRAMAS DE ENTRENAMIENTO — Cards con foto de fondo
+   ══════════════════════════════════════════════════════════════ */
+
+.programs-section {
+  padding: 6rem 1.5rem;
+  background-color: var(--color-bg);
+}
+
+.programs-section__container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.programs-section__header {
   text-align: center;
   margin-bottom: 4rem;
 }
 
-.benefits__header .section-subtitle {
+.programs-section__header .section-subtitle {
   margin: 0 auto;
 }
 
-.benefits__grid {
+.programs-section__title {
+  letter-spacing: 3px;
+}
+
+/* ══ Grilla de cards ══ */
+.programs-section__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
 
-.benefit-card {
+/* ══ CARD DE PROGRAMA ══ */
+.program-card {
   position: relative;
-  background-color: var(--color-bg-card);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 3 / 4;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.program-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Imagen de fondo */
+.program-card__image-wrapper {
+  position: absolute;
+  inset: 0;
+}
+
+.program-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.program-card:hover .program-card__image {
+  transform: scale(1.08);
+}
+
+/* Overlay oscuro degradado */
+.program-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.25) 40%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+  z-index: 1;
+  transition: background 0.4s ease;
+}
+
+.program-card:hover .program-card__overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.3) 40%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+}
+
+/* Badge popular */
+.program-card__badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+  padding: 0.3rem 0.85rem;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-radius: 50px;
+  text-transform: uppercase;
+}
+
+/* Contenido de texto */
+.program-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.program-card__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-weight: 900;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.15;
+}
+
+.program-card__duration {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.program-card__desc {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin-top: 0.25rem;
+}
+
+.program-card__prices {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.program-card__price {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.program-card__price-divider {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.9rem;
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   SECCIÓN: MODAL DE DETALLE DE PROGRAMA
+   ══════════════════════════════════════════════════════════════ */
+
+.program-modal__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.program-modal__container {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--color-bg-card);
   border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  padding: 2.5rem 2rem;
-  text-align: center;
+  border-radius: 20px;
+  animation: modalSlideUp 0.35s ease;
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar del modal */
+.program-modal__container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.program-modal__container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.program-modal__container::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+/* Botón cerrar */
+.program-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
   transition: var(--transition);
+}
+
+.program-modal__close:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+/* Header del modal con imagen */
+.program-modal__hero {
+  position: relative;
+  width: 100%;
+  height: 280px;
   overflow: hidden;
 }
 
-/* Borde gradiente superior decorativo */
-.benefit-card::before {
-  content: "";
+.program-modal__hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.program-modal__hero-overlay {
   position: absolute;
-  top: 0;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+.program-modal__hero-content {
+  position: absolute;
+  bottom: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(
-    90deg,
-    var(--color-gradient-start),
-    var(--color-gradient-end)
-  );
-  opacity: 0;
-  transition: var(--transition);
+  padding: 2rem;
 }
 
-.benefit-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-primary);
+.program-modal__badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-radius: 50px;
+  margin-bottom: 0.5rem;
 }
 
-.benefit-card:hover::before {
-  opacity: 1;
+.program-modal__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 900;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.3rem;
 }
 
-.benefit-card__icon {
-  display: inline-flex;
+.program-modal__duration {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Precios del modal */
+.program-modal__prices {
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: linear-gradient(
-    135deg,
-    rgba(var(--color-gradient-start-rgb, 99, 102, 241), 0.15),
-    rgba(var(--color-gradient-end-rgb, 168, 85, 247), 0.15)
-  );
-  color: var(--color-primary);
-  margin-bottom: 1.5rem;
-  transition: var(--transition);
+  gap: 2rem;
+  padding: 1.5rem 2rem;
+  background: rgba(var(--color-primary-rgb, 96, 110, 133), 0.08);
+  border-bottom: 1px solid var(--color-border);
 }
 
-.benefit-card:hover .benefit-card__icon {
+.program-modal__price-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.program-modal__price-amount {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--color-text);
+}
+
+.program-modal__price-currency {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  letter-spacing: 1px;
+}
+
+.program-modal__price-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--color-border);
+}
+
+/* Secciones del modal */
+.program-modal__section {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.program-modal__section:last-of-type {
+  border-bottom: none;
+}
+
+.program-modal__section-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.program-modal__section-title svg {
+  color: var(--color-primary);
+}
+
+.program-modal__full-desc {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+/* Stats rápidos del modal */
+.program-modal__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.program-modal__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(var(--color-primary-rgb, 96, 110, 133), 0.06);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+}
+
+.program-modal__stat-icon {
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+}
+
+.program-modal__stat-value {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.program-modal__stat-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Features del modal */
+.program-modal__features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.program-modal__feature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.program-modal__feature-icon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+/* Objetivos del modal */
+.program-modal__objectives {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.program-modal__objective {
+  padding-left: 1.25rem;
+  position: relative;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.program-modal__objective::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* Roadmap del modal */
+.program-modal__roadmap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-border);
+}
+
+.program-modal__phase {
+  position: relative;
+  padding: 0 0 1.5rem 1.5rem;
+}
+
+.program-modal__phase:last-child {
+  padding-bottom: 0;
+}
+
+.program-modal__phase-dot {
+  position: absolute;
+  left: -1.55rem;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  border: 2px solid var(--color-bg-card);
+}
+
+.program-modal__phase-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.program-modal__phase-week {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.program-modal__phase-focus {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.program-modal__phase-desc {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-top: 0.15rem;
+}
+
+/* CTA del modal */
+.program-modal__cta {
+  padding: 1.5rem 2rem 2rem;
+}
+
+.program-modal__cta-btn {
+  display: block;
+  width: 100%;
+  padding: 1rem;
   background: linear-gradient(
     135deg,
     var(--color-gradient-start),
     var(--color-gradient-end)
   );
   color: #ffffff;
-  transform: scale(1.1);
-}
-
-.benefit-card__title {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 0.75rem;
-}
-
-.benefit-card__text {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  color: var(--color-text-secondary);
-  line-height: 1.7;
-}
-
-/* ══ SECCIÓN: TESTIMONIOS ══ */
-.testimonials {
-  padding: 6rem 1.5rem;
-  background-color: var(--color-bg-secondary);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Patrón decorativo de fondo sutil */
-.testimonials::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(
-    circle,
-    rgba(var(--color-gradient-start-rgb, 99, 102, 241), 0.05) 0%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.testimonials::after {
-  content: "";
-  position: absolute;
-  bottom: -30%;
-  left: -10%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(
-    circle,
-    rgba(var(--color-gradient-end-rgb, 168, 85, 247), 0.05) 0%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.testimonials__container {
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
-.testimonials__header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
-
-.testimonials__header .section-subtitle {
-  margin: 0 auto;
-}
-
-.testimonials__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
-
-.testimonial-card {
-  background-color: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  padding: 2rem;
-  transition: var(--transition);
-  position: relative;
-}
-
-.testimonial-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-primary);
-}
-
-/* Icono de comilla decorativo */
-.testimonial-card__quote-icon {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.5rem;
-  font-size: 3rem;
-  font-family: var(--font-heading);
-  font-weight: 900;
-  line-height: 1;
-  background: linear-gradient(
-    135deg,
-    var(--color-gradient-start),
-    var(--color-gradient-end)
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  opacity: 0.2;
-  user-select: none;
-}
-
-.testimonial-card__stars {
-  display: flex;
-  gap: 0.2rem;
-  margin-bottom: 1rem;
-}
-
-.testimonial-card__star {
-  color: #f59e0b;
-  width: 18px;
-  height: 18px;
-}
-
-.testimonial-card__star--empty {
-  color: var(--color-border);
-}
-
-.testimonial-card__text {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  color: var(--color-text-secondary);
-  line-height: 1.8;
-  font-style: italic;
-  margin-bottom: 1.5rem;
-}
-
-.testimonial-card__author {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.testimonial-card__avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--color-primary);
-}
-
-.testimonial-card__name {
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 700;
-  color: var(--color-text);
-}
-
-.testimonial-card__role {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  color: var(--color-text-secondary);
-  margin-top: 0.15rem;
-}
-
-.testimonials__footer {
-  text-align: center;
-  margin-top: 3rem;
-}
-
-.testimonials__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-heading);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--color-primary);
-  text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
   transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(var(--color-primary-rgb, 96, 110, 133), 0.3);
 }
 
-.testimonials__link:hover {
-  color: var(--color-primary-hover);
-  gap: 0.75rem;
+.program-modal__cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(var(--color-primary-rgb, 96, 110, 133), 0.5);
 }
 
-/* ══ SECCIÓN: RESPONSIVE ══ */
+
+/* ══════════════════════════════════════════════════════════════
+   SECCIÓN: RESPONSIVE
+   ══════════════════════════════════════════════════════════════ */
+
 @media (max-width: 1024px) {
-  .benefits__grid {
+  .programs-section__grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -546,16 +841,35 @@
     border-bottom: none;
   }
 
-  .benefits__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .testimonials__grid {
-    grid-template-columns: 1fr;
-  }
-
   .hero__title {
     letter-spacing: 1px;
+  }
+
+  .programs-section__grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .program-card {
+    aspect-ratio: 4 / 5;
+  }
+
+  .program-modal__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .program-modal__hero {
+    height: 220px;
+  }
+
+  .program-modal__prices {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .program-modal__price-divider {
+    width: 60px;
+    height: 1px;
   }
 }
 
@@ -569,48 +883,355 @@
     font-size: 0.9rem;
   }
 
-  .benefit-card {
-    padding: 2rem 1.5rem;
+  .program-modal__section {
+    padding: 1.25rem 1.25rem;
   }
 
-  .testimonial-card {
-    padding: 1.5rem;
+  .program-modal__cta {
+    padding: 1.25rem;
   }
 }
 
-/* ── TARJETA INDIVIDUAL DE BENEFICIO EN NEÓN ── */
-.benefit-card--neon-single {
-  max-width: 720px;
+/* ══════════════════════════════════════════════════════════════
+   SECCIÓN: COACHING 1:1
+   ══════════════════════════════════════════════════════════════ */
+
+.coaching-section {
+  padding: 6rem 1.5rem;
+  background-color: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.coaching-section__container {
+  max-width: 1200px;
   margin: 0 auto;
-  background: rgba(18, 18, 34, 0.95);
-  border: 2px solid var(--color-primary);
-  border-radius: 14px;
-  padding: 3rem 2.5rem;
-  text-align: center;
-  box-shadow: 0 0 40px rgba(0, 245, 160, 0.25);
-  animation: fadeInSlide 0.4s ease;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: center;
 }
 
-.benefit-card--neon-single .benefit-card__icon {
-  margin: 0 auto 1.5rem;
-  width: 70px;
-  height: 70px;
-  background: rgba(0, 245, 160, 0.15);
+.coaching-section__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.coaching-section__title {
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+}
+
+.coaching-section__text {
+  font-family: var(--font-body);
+  font-size: 1.18rem;
+  color: var(--color-text);
+  line-height: 1.75;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--color-primary);
+  background: rgba(var(--color-primary-rgb, 96, 110, 133), 0.08);
+  border-radius: 0 12px 12px 0;
+}
+
+.coaching-section__features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.coaching-section__feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.coaching-section__feature-item strong {
+  color: var(--color-text);
+}
+
+.coaching-section__feature-icon {
   color: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+  background: rgba(var(--color-primary-rgb, 96, 110, 133), 0.15);
+  padding: 3px;
   border-radius: 50%;
+}
+
+.coaching-section__actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.coaching-section__image-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.coaching-section__image {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 2;
+}
+
+/* Marco decorativo detrás de la imagen */
+.coaching-section__image-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  right: -20px;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--color-primary);
+  border-radius: 20px;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+/* Badge flotante sobre la foto */
+.coaching-section__badge {
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  z-index: 3;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border: 1px solid var(--color-primary);
-  box-shadow: 0 0 20px rgba(0, 245, 160, 0.3);
+  gap: 0.85rem;
+  padding: 1rem 1.5rem;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
 }
 
-.benefit-card--neon-single .benefit-card__title {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+.coaching-section__badge-icon {
+  color: var(--color-primary);
+  flex-shrink: 0;
 }
 
-.benefit-card--neon-single .benefit-card__desc {
-  font-size: 1.1rem;
+.coaching-section__badge strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.coaching-section__badge span {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 992px) {
+  .coaching-section__container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .coaching-section__image-wrapper {
+    order: -1;
+  }
+
+  .coaching-section__image {
+    height: 400px;
+  }
+
+  .coaching-section__image-wrapper::after {
+    top: 12px;
+    right: -12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .coaching-section__image {
+    height: 320px;
+  }
+
+  .coaching-section__badge {
+    left: 10px;
+    bottom: -15px;
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SECCIÓN: SOBRE MÍ
+   ══════════════════════════════════════════════════════════════ */
+
+.about-section {
+  padding: 6rem 1.5rem;
+  background-color: var(--color-bg-card);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--color-border);
+}
+
+.about-section__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 4.5rem;
+  align-items: center;
+}
+
+.about-section__image-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.about-section__image {
+  width: 100%;
+  height: 540px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 2;
+}
+
+/* Marco decorativo detrás de la imagen */
+.about-section__image-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: -20px;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--color-primary);
+  border-radius: 20px;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+/* Badge flotante sobre la foto */
+.about-section__badge {
+  position: absolute;
+  bottom: -20px;
+  right: 20px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem 1.5rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+}
+
+.about-section__badge-icon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.about-section__badge strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.about-section__badge span {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.about-section__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.about-section__title {
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+}
+
+.about-section__bio {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  font-family: var(--font-body);
+  font-size: 1.08rem;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+.about-section__lead {
+  font-size: 1.28rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.about-section__quote {
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 0.5rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--color-primary);
+  background: rgba(var(--color-primary-rgb, 96, 110, 133), 0.08);
+  border-radius: 0 12px 12px 0;
   line-height: 1.7;
 }
+
+@media (max-width: 992px) {
+  .about-section__container {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .about-section__image {
+    height: 420px;
+  }
+
+  .about-section__image-wrapper::after {
+    top: 12px;
+    left: -12px;
+  }
+
+  .about-section__badge {
+    right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-section__image {
+    height: 340px;
+  }
+
+  .about-section__badge {
+    right: 10px;
+    bottom: -15px;
+    padding: 0.75rem 1rem;
+  }
+
+  .about-section__lead {
+    font-size: 1.15rem;
+  }
+
+  .about-section__quote {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+}
+
