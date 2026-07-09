@@ -1,11 +1,10 @@
 /* ══════════════════════════════════════════════════════════════════════════════
    COMPONENTE: Header — Barra de navegación principal del sitio
-   Incluye: logo, enlaces de navegación por scroll (#sección), botón CTA, menú móvil y ThemeSwitcher
+   Incluye: logo, enlaces de navegación por scroll (#sección), botón CTA y menú móvil
    ══════════════════════════════════════════════════════════════════════════════ */
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { Menu, X, Dumbbell } from "lucide-react";
-import ThemeSwitcher from "./ThemeSwitcher";
 import "./Header.css";
 
 /* ══ SECCIÓN: DATOS DE NAVEGACIÓN POR SECCIÓN ══ */
@@ -136,9 +135,6 @@ function Header() {
               );
             })}
           </ul>
-
-          {/* ══ SECCIÓN: THEME SWITCHER (ESCRITORIO) ══ */}
-          <ThemeSwitcher />
         </nav>
 
         {/* ══ SECCIÓN: BOTÓN CTA (ESCRITORIO) ══ */}
@@ -186,11 +182,6 @@ function Header() {
               );
             })}
           </ul>
-
-          {/* ══ SECCIÓN: THEME SWITCHER (MÓVIL) ══ */}
-          <div className="header__mobile-theme">
-            <ThemeSwitcher />
-          </div>
 
           {/* ══ SECCIÓN: BOTÓN CTA (MÓVIL) ══ */}
           <a

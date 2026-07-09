@@ -6,7 +6,7 @@
    marcados como 🔧 MODIFICABLE.
    ══════════════════════════════════════════════════════════════ */
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router";
 import {
   ArrowRight,
@@ -14,7 +14,6 @@ import {
   Users,
   Heart,
   Star,
-  ChevronLeft,
   ChevronRight,
   Sparkles,
   Target,
@@ -24,12 +23,11 @@ import testimonials from "../../data/testimonials";
 import About from "../About/About";
 import Programs from "../Programs/Programs";
 import Contact from "../Contact/Contact";
-import { useTheme } from "../../context/ThemeContext";
+
 import "./Home.css";
 
 /* ══ SUB-COMPONENTE: HERO SECTION ══ */
-function HeroSection({ neonUnlocked, onUnlock }) {
-  const { theme } = useTheme();
+function HeroSection() {
 
   return (
     <section className="hero">
@@ -96,8 +94,6 @@ function HeroSection({ neonUnlocked, onUnlock }) {
 
 /* ══ SUB-COMPONENTE: SECCIÓN DE BENEFICIOS ══ */
 function BenefitsSection() {
-  const { theme } = useTheme();
-  const [benefitIdx, setBenefitIdx] = useState(0);
 
   /* 🔧 MODIFICABLE: Array de beneficios del coaching 1 a 1 */
   const benefits = [
@@ -124,7 +120,6 @@ function BenefitsSection() {
     },
   ];
 
-  const currentBenefit = benefits[benefitIdx];
 
   return (
     <section className="benefits">
@@ -134,52 +129,20 @@ function BenefitsSection() {
           <span className="section-tag">Metodología 1 a 1</span>
           <h2 className="section-title">¿Por qué entrenar con un Personal Trainer?</h2>
           <p className="section-subtitle">
-            {theme === "neon"
-              ? "Navegá entre nuestros 3 pilares metodológicos usando las flechas de desplazamiento horizontal."
-              : "El 90% de las personas abandonan el gimnasio al entrenar solas por falta de guía y estancamiento. Con mi sistema tendrás dirección clara y resultados garantizados."}
+            El 90% de las personas abandonan el gimnasio al entrenar solas por falta de guía y estancamiento. Con mi sistema tendrás dirección clara y resultados garantizados.
           </p>
         </div>
 
-        {theme === "neon" ? (
-          <div className="neon-pilar-carousel">
-            <div className="neon-carousel-controls">
-              <button
-                className="neon-carousel-arrow"
-                onClick={() => setBenefitIdx((prev) => (prev > 0 ? prev - 1 : benefits.length - 1))}
-                aria-label="Beneficio anterior"
-              >
-                <ChevronLeft size={32} />
-              </button>
-              <span className="neon-carousel-counter">
-                Pilar {benefitIdx + 1} de {benefits.length}
-              </span>
-              <button
-                className="neon-carousel-arrow"
-                onClick={() => setBenefitIdx((prev) => (prev < benefits.length - 1 ? prev + 1 : 0))}
-                aria-label="Beneficio siguiente"
-              >
-                <ChevronRight size={32} />
-              </button>
-            </div>
-
-            <article key={currentBenefit.id} className="benefit-card benefit-card--neon-single">
-              <div className="benefit-card__icon">{currentBenefit.icon}</div>
-              <h3 className="benefit-card__title">{currentBenefit.title}</h3>
-              <p className="benefit-card__desc">{currentBenefit.description}</p>
+        {/* Grilla de tarjetas de beneficios */}
+        <div className="benefits__grid">
+          {benefits.map((benefit) => (
+            <article key={benefit.id} className="benefit-card">
+              <div className="benefit-card__icon">{benefit.icon}</div>
+              <h3 className="benefit-card__title">{benefit.title}</h3>
+              <p className="benefit-card__desc">{benefit.description}</p>
             </article>
-          </div>
-        ) : (
-          /* Grilla de tarjetas de beneficios */
-          <div className="benefits__grid">
-            {benefits.map((benefit) => (
-              <article key={benefit.id} className="benefit-card">
-                <div className="benefit-card__icon">{benefit.icon}</div>
-                <h3 className="benefit-card__title">{benefit.title}</h3>
-                <p className="benefit-card__desc">{benefit.description}</p>
-              </article>
-            ))}
-          </div>
-        )}
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -187,7 +150,6 @@ function BenefitsSection() {
 
 /* ══ SUB-COMPONENTE: SECCIÓN DE TESTIMONIOS ══ */
 function TestimonialsSection() {
-  const { theme } = useTheme();
 
   return (
     <section className="testimonials">
@@ -224,7 +186,7 @@ function TestimonialsSection() {
               {/* Autor del testimonio */}
               <div className="testimonial-card__author">
                 <img
-                  src={item.images?.[theme] || item.image}
+                  src={item.image}
                   alt={item.name}
                   className="testimonial-card__avatar"
                   loading="lazy"
